@@ -1,5 +1,6 @@
 <template>
   <form v-on:submit.prevent="submitForm">
+    <img src="./assets/logo.jpg">
     <div class="form-control">
       <label for="email">E-mail</label>
       <input type="email" id="emial" v-model.trim="email">
@@ -9,13 +10,17 @@
       <input type="password" id="password" v-model.trim="password">
     </div>
     <p v-if="!isValid" class="errors">Your E-mail and Password are required</p>
-    <button>{{ submitButtonCpt }}</button>
-    <button mode="flat" v-on:click="switchUserAuth">{{ switchUserButtonCpt }}</button>
+    <button v-on:click="userLogin">Login</button>
   </form>
+  <google-map></google-map>
 </template>
 
 <script>
+import GoogleMap from './GoogleMap.vue';
+
 export default {
+  components: {GoogleMap},
+
   data() {
     return {
       email: '',
@@ -31,6 +36,8 @@ export default {
       if (this.email === '' || !this.email.includes('@') || this.password === '') {
         this.isValid = false;
         return;
+      } else {
+        this.$router.replace('/products');
       }
 
       if (this.mode === 'login') {
@@ -38,12 +45,19 @@ export default {
           email: this.email,
           password: this.password,
         })
-      } else {
-        this.$store.dispatch('signup', {
-          email: this.email,
-          password: this.password,
-        });
       }
+    },
+    userLogin() {
+      fetch('https://food-and-drinks-159e2-default-rtdb.europe-west1.firebasedatabase.app/login.json', {
+        method: 'POST',
+        headers: {
+          'Contact-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userEmail: this.email,
+          userPassword: this.password
+        }),
+      });
     },
     switchUserAuth() {
       if (this.mode === 'login') {
@@ -51,27 +65,7 @@ export default {
       } else {
         this.mode = 'login';
       }
-    }
-  },
-
-  computed: {
-    submitButtonCpt() {
-      if (this.mode === 'login') {
-        return 'login';
-      } else {
-        return 'signup';
-      }
     },
-    switchUserButtonCpt() {
-      if (this.mode === 'login') {
-        return 'signup';
-      } else {
-        return 'login';
-      }
-    },/* 
-    isLoggedIn() {
-      return this.$store.getters.isAuth;
-    }, */
   },
 }
 </script>

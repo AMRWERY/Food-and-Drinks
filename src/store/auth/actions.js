@@ -29,6 +29,7 @@ export default {
         const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCLptao5iu-0nIUvgXCbEM7IfN2shJ5Ni4', {
             method: 'POST',
             body: JSON.stringify({
+                name: payload.fullName,
                 email: payload.email,
                 password: payload.password,
                 returnSecureToken: true

@@ -36,9 +36,9 @@ export default {
     }
 },
 
-  /* getters: {
+  getters: {
     products(state) {
       return state.products;
     }
-  } */
+  }
 };
