@@ -13,27 +13,42 @@
       </div>
     </div>
     <div class="product__actions">
-      <button @click="addToCart">Add to Cart</button>
+      <button v-if="!showAddedButton" class="add-to_cart" @click="addToCart">Add to Cart</button>
+      <button v-if="showAddedButton" class="added-to_cart" @click="addToCart">Item Added</button>
     </div>
   </li>
 </template>
 
+
 <script>
+
 export default {
   props: ['id', 'image', 'title', 'price', 'description'],
-  
+    data(){
+      return {
+        showAddedButton:false,
+      }
+    },
   methods: {
     addToCart() {
+      this.showAddedButton=true
+        this.handelButtonShowAndHide()
       this.$store.dispatch('cart/addToCart', {
         id: this.id,
       });
     },
+
+    handelButtonShowAndHide(){
+      setTimeout(()=>{
+       return this.showAddedButton=false
+      },3000)
+    }
   },
 };
 </script>
 
 <style scoped>
-li {
+.product {
   margin: 1.5rem auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 1rem;
@@ -65,7 +80,7 @@ li {
   text-align: center;
 }
 
-button {
+.add-to_cart {
   font: inherit;
   cursor: pointer;
   background-color: #45006d;
@@ -75,8 +90,8 @@ button {
   border-radius: 30px;
 }
 
-button:hover,
-button:active {
+.add-to_cart:hover,
+.add-to_cart:active {
   background-color: #760ab4;
   border-color: #760ab4;
 }

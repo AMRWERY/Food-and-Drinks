@@ -6,9 +6,6 @@
     <nav>
       <ul>
         <li>
-          <router-link to="/register">Register</router-link>
-        </li>
-        <li>
           <router-link to="/login">Login</router-link>
         </li>
         <li>
@@ -53,9 +50,9 @@ ul {
 }
 
 li {
-  margin: 0 1rem;
+  margin: 1.5rem auto;
+  padding: 1rem;
 }
-
 a {
   text-decoration: none;
   color: #333;
