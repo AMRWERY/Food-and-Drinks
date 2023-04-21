@@ -6,9 +6,6 @@
     <nav>
       <ul>
         <li>
-          <router-link to="/login">Login</router-link>
-        </li>
-        <li>
           <router-link to="/products">Products</router-link>
         </li>
         <li>
@@ -24,7 +21,7 @@
 export default {
   computed: {
     cartQuantity() {
-      return this.$store.getters['cart/quantity'];
+      return this.$store.getters["cart/quantity"];
     },
   },
 };

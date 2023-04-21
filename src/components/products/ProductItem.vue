@@ -13,36 +13,40 @@
       </div>
     </div>
     <div class="product__actions">
-      <button v-if="!showAddedButton" class="add-to_cart" @click="addToCart">Add to Cart</button>
-      <button v-if="showAddedButton" class="added-to_cart" @click="addToCart">Item Added</button>
+      <button v-if="!showAddedButton" class="add-to_cart" @click="addToCart">
+        Add to Cart
+      </button>
+      <button v-if="showAddedButton" class="added-to_cart" @click="addToCart">
+        Item Added
+      </button>
     </div>
   </li>
 </template>
 
-
 <script>
-
 export default {
-  props: ['id', 'image', 'title', 'price', 'description'],
-    data(){
-      return {
-        showAddedButton:false,
-      }
-    },
+  props: ["id", "image", "title", "price", "description"],
+
+  data() {
+    return {
+      showAddedButton: false,
+    };
+  },
+
   methods: {
     addToCart() {
-      this.showAddedButton=true
-        this.handelButtonShowAndHide()
-      this.$store.dispatch('cart/addToCart', {
+      this.showAddedButton = true;
+      this.handelButtonShowAndHide();
+      this.$store.dispatch("cart/addToCart", {
         id: this.id,
       });
     },
 
-    handelButtonShowAndHide(){
-      setTimeout(()=>{
-       return this.showAddedButton=false
-      },3000)
-    }
+    handelButtonShowAndHide() {
+      setTimeout(() => {
+        return (this.showAddedButton = false);
+      }, 3000);
+    },
   },
 };
 </script>
